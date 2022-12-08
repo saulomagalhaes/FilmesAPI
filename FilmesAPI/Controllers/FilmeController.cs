@@ -16,4 +16,10 @@ public class FilmeController : ControllerBase
         HttpResponse response = HttpContext.Response;
         response.StatusCode = 201;
     }
+
+    [HttpGet]
+    public IEnumerable<Filme> RecuperaFilmes()
+    {
+        return _filmes;
+    }
 }
