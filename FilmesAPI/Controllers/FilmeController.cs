@@ -11,12 +11,11 @@ public class FilmeController : ControllerBase
     private static int _id = 0;
 
     [HttpPost]
-    public void AdicionaFilme([FromBody] Filme filme)
+    public IActionResult AdicionaFilme([FromBody] Filme filme)
     {
         filme.Id = ++_id;
         _filmes.Add(filme);
-        HttpResponse response = HttpContext.Response;
-        response.StatusCode = 201;
+        return CreatedAtAction(nameof(RecuperaFilmePorId), new { id = filme.Id }, filme);
     }
 
     [HttpGet]
