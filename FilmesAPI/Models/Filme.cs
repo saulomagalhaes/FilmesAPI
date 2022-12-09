@@ -12,7 +12,7 @@ public class Filme
     public string Titulo { get; set; }
 
     [Required(ErrorMessage = "O genero do filme é obrigatório")]
-    [MaxLength(50, ErrorMessage ="O tamanho do genero nao pode exceder 50 caracteres")]
+    [StringLength(50, ErrorMessage ="O tamanho do genero nao pode exceder 50 caracteres")]
     public string Genero { get; set; }
 
     [Required(ErrorMessage = "A duração do filme é obrigatório")]
