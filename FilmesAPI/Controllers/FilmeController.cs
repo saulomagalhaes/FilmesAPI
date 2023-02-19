@@ -37,9 +37,10 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 10)
+    public IActionResult RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 10)
     {
-        return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take));
+        var filmes = _mapper.Map<ICollection<ReadFilmeDto>>(_db.Filmes.Skip(skip).Take(take));
+        return Ok(filmes);
     }
 
     [HttpGet("{id}")]
