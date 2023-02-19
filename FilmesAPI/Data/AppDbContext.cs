@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FilmesAPI.Data;
 
-public class FilmeContext : DbContext
+public class AppDbContext : DbContext
 {
     public DbSet<Filme> Filmes { get; set; }
     public DbSet<Cinema> Cinemas { get; set; }
-    public FilmeContext(DbContextOptions<FilmeContext> opts ) : base(opts)
+    public AppDbContext(DbContextOptions<AppDbContext> opts ) : base(opts)
     {
 
     }

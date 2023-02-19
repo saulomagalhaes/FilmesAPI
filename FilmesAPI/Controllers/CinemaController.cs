@@ -11,10 +11,10 @@ namespace FilmesAPI.Controllers
     [ApiController]
     public class CinemaController : ControllerBase
     {
-        private readonly FilmeContext _db;
+        private readonly AppDbContext _db;
         private readonly IMapper _mapper;
 
-        public CinemaController(FilmeContext db, IMapper mapper)
+        public CinemaController(AppDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
