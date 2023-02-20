@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FilmesAPI.Data;
+using FilmesAPI.Data.Dtos;
 using FilmesAPI.Data.Dtos.Enderecos;
 using FilmesAPI.Data.Dtos.Filme;
 using FilmesAPI.Models;
@@ -59,12 +60,21 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult AtualizaEnderecoParcial(int id, [FromBody] UpdateEnderecoDto enderecoDto)
+        public IActionResult AtualizaEnderecoParcial(int id, JsonPatchDocument<UpdateEnderecoDto> patch)
         {
             var endereco = _db.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
             if (endereco == null)
                 return NotFound();
-            _mapper.Map(enderecoDto, endereco);
+
+            var enderecoParaAtualizar = _mapper.Map<UpdateEnderecoDto>(endereco);
+
+            patch.ApplyTo(enderecoParaAtualizar, ModelState);
+
+            if (!TryValidateModel(enderecoParaAtualizar))
+            {
+                return ValidationProblem(ModelState);
+            }
+            _mapper.Map(enderecoParaAtualizar, endereco);
             _db.SaveChanges();
             return NoContent();
         }
